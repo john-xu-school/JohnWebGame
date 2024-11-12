@@ -1,4 +1,4 @@
-# Game Technical Specifications
+# Game DESIGN
 
 ## Overview
 This is a tile-based browser game developed with JavaScript, HTML, and CSS. The player's objective is to navigate through a procedurally generated tilemap of 50 rows by 4 columns, aiming to reach the bottom as fast as possible by "digging" through colored tiles. The player can move horizontally between columns and dig down vertically, with adjacent tiles of the same color being destroyed simultaneously.
