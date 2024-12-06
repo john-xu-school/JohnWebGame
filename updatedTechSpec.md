@@ -1,22 +1,84 @@
 # Classes
-## `CameraController`
+# Technical Specification: Additional Game Scripts
 
-Attached to MainCamera object in game.
+## CameraController.cs
 
-`PlayerController pc`
-On `update()`, changes the position of the camera the code is attached to the position of the player according to the playerController instance `pc`.
+Attached to MainCamera in Scene.
 
-## `HealthController`
+### Class Overview
+Manages camera movement to follow the player vertically
 
-Attached to playerController object in game.
+### Public Variables
+- `pc` (PlayerController): Reference to the player controller for tracking player position
 
-On `update()`, checks to see if health is less than or equal to zero. In the case that health reaches 0, ends the game by calling `endGame()` from level handler.
+### Methods
+- `Start()`: Currently empty, no initialization logic
+- `Update()`: 
+  - Updates camera's vertical position to match the player's y-coordinate
+  - Maintains the original x and z positions of the camera
 
-`decHealth()` decrements the health of the player by `2`. Udpates the `healthBarUI` vallue.
+## HealthController.cs
 
-`incHealth()` increments the health of the player by `20` with a maximum of `maxHealth` possible. Udpates the `healthBarUI` vallue. 
+Attached to PlayerController in Scene.
+
+### Class Overview
+Manages player health mechanics, including health bar UI and game state
+
+### Public Variables
+- `health` (int): Current player health
+- `lh` (LevelHandler): Reference to level handler for game state management
+- `maxHealth` (int): Maximum possible health (default 50)
+- `healthBarUI` (Slider): UI slider representing player's health
+
+### Methods
+- `Start()`: 
+  - Initializes health bar UI
+  - Sets maximum health value
+  - Sets initial health bar value
+
+- `Update()`: 
+  - Checks if health has dropped to zero
+  - Triggers end game if health reaches 0
+
+- `endGame()`: 
+  - Calls level handler to display death UI
+
+- `decHealth()`: 
+  - Reduces health by 2 points
+  - Updates health bar slider
+
+- `incHealth()`: 
+  - Increases health by 20 points
+  - Prevents health from exceeding maximum health
+  - Updates health bar slider
+
+## LevelHandler.cs
+
+Attached to LevelHandler in Scene.
+
+### Class Overview
+Manages game state, UI for win/loss conditions, and level reloading
+
+### Public Variables
+- `gameLoss` (GameObject): UI object for game loss screen
+- `gameWin` (GameObject): UI object for game win screen
+
+### Methods
+- `Start()`: 
+  - Hides both game loss and game win UI elements on initial load
+
+- `deathUI()`: 
+  - Activates game loss UI when player dies
+
+- `winUI()`: 
+  - Activates game win UI when player reaches the level goal
+
+- `reloadLevel()`: 
+  - Reloads the game scene (Scene index 1)
 
 ## PlayerController.cs
+
+Attached to PlayerController in Scene.
 
 ### Class Overview
 Manages player movement, interactions, and game state in a tile-based environment.
@@ -63,6 +125,8 @@ Manages player movement, interactions, and game state in a tile-based environmen
 
 ## ProceduralGenerator.cs
 
+Attached to Grid in Scene.
+
 ### Class Overview
 Responsible for procedural level generation and tile placement
 
@@ -88,6 +152,8 @@ Responsible for procedural level generation and tile placement
   - Creates heal effect instances
 
 ## tileBehaviorManager.cs
+
+Attached to TileBehaviorManager in Scene.
 
 ### Class Overview
 Manages tile behavior, including cascading and falling mechanics
